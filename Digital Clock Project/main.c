@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "PortFSetup.h"
 #include "SysTick.h"
-
+#include "Uart.h"
 
 //==============================
 //LED color
@@ -21,23 +21,51 @@ void Systick_Timer_Init(void);
 void Delay(void);
 void GPIOPortF_Handler(void);
 
-static uint8_t Colors[] = {OFF, RED, BLUE, GREEN, PURPLE, YELLOW, CYAN, WHITE};
-static uint8_t UpperBound = 8;
+
 
 
 int main(void){
 	PortF_Init();
 	Systick_Timer_Init();
-	
+	Uart_Init();
+	char Catch = 0;
 	
 	while(1){
 		
+		Catch = Uart_Recieve();      // Wait for char from PuTTY
 		
-		for(uint8_t i = 0;i < UpperBound; i++){
+		if (Catch == 'R') {
 			
-			ChangeColor(Colors[i]);
+      ChangeColor(RED);
+			Uart_SendString("Command Recevied: RED\r\n");
+      Delay();
+			
+    }else if (Catch == 'B'){
+			
+			ChangeColor(BLUE);
+			Uart_SendString("Command Recevied: BLUE\r\n");
+			Delay();
+			
+		}else{
+		
+	
+			ChangeColor(GREEN);
+			Uart_SendString("Color:	GREEN\r\n");
+			Delay();
+			ChangeColor(PURPLE);
+			Uart_SendString("Color:	PURPLE\r\n");
+			Delay();
+			ChangeColor(YELLOW);
+			Uart_SendString("Color:	YELLOW\r\n");
+			Delay();
+			ChangeColor(OFF);
+			Uart_SendString("Color: OFF\r\n");
+			Delay();
+			ChangeColor(WHITE);
+			Uart_SendString("Color:	WHITE\r\n");
 			Delay();
 		}
+
 		
 	}
 		
@@ -48,5 +76,6 @@ int main(void){
 void GPIOPortF_Handler(void){
 	GPIO_PORTF_ICR_R = 0x10;
 	ChangeColor(CYAN);
+	Uart_SendString("Interupt: Cyan\r\n");
 }
 
