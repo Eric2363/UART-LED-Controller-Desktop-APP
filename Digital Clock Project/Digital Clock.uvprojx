@@ -394,6 +394,21 @@
               <FileType>2</FileType>
               <FilePath>.\startup.s</FilePath>
             </File>
+            <File>
+              <FileName>Uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>PortFSetup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\PortFSetup.c</FilePath>
+            </File>
+            <File>
+              <FileName>SysTick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SysTick.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
